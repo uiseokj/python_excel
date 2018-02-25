@@ -1,9 +1,19 @@
+# -*- coding: utf-8 -*-
+
+import os
 import sys
 
 import pandas as pd
 from pandas import DataFrame
 
-def main(filePath, fileName):
+def main(dirName):
+	for root, dirs, files in os.walk(dirName):
+		for fileName in files:
+			filePath = os.path.join(root, fileName)
+
+			read_excel(filePath, fileName)
+
+def read_excel(filePath, fileName):
 	print(fileName)
 	fileNameTemp1 = fileName.split(".")
 	fileNameTemp2 = fileNameTemp1[0].split("_")
@@ -18,8 +28,8 @@ def main(filePath, fileName):
 
 
 if __name__ == "__main__":
-	if (len(sys.argv) < 3):
-		print("Usage: python3 read_excel_pandas.py filepath filename")
+	if (len(sys.argv) < 2):
+		print("Usage: python3 read_excel_pandas.py dir")
 		sys.exit()
 
-	main(sys.argv[1], sys.argv[2])
+	main(sys.argv[1])
